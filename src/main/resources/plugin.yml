@@ -1,0 +1,4 @@
+name: DecayingWorld
+version: '1.0-SNAPSHOT'
+main: freegamerdev.decayingWorld.DecayingWorld
+api-version: '1.21'
