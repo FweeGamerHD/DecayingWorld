@@ -1,4 +1,4 @@
-package freegamerdev.decayingWorld;
+package freegamerdev.decayingWorld.listeners;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

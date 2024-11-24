@@ -1,5 +1,7 @@
 package freegamerdev.decayingWorld;
 
+import freegamerdev.decayingWorld.listeners.BlockPlaceListener;
+import freegamerdev.decayingWorld.logic.DecayManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +19,9 @@ public final class DecayingWorld extends JavaPlugin {
         initDatabase();
         BlockPlaceListener listener = new BlockPlaceListener(databaseConnection);
         getServer().getPluginManager().registerEvents(listener, this);
+
+        DecayManager decayManager = new DecayManager(this, databaseConnection);
+        decayManager.startDecayTask();
 
         Bukkit.getLogger().info("WorldDecay has been initialized.");
     }
