@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public final class DecayingWorld extends JavaPlugin {
@@ -28,7 +29,14 @@ public final class DecayingWorld extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        if (databaseConnection != null) {
+            try {
+                databaseConnection.close();
+                getLogger().info("Database connection for the DecayingWorld Plugin closed.");
+            } catch (SQLException e) {
+                getLogger().severe("Error closing database connection: " + e.getMessage());
+            }
+        }
     }
 
     private void initDatabase() {
@@ -47,7 +55,8 @@ public final class DecayingWorld extends JavaPlugin {
                         "y INTEGER NOT NULL, " +
                         "z INTEGER NOT NULL, " +
                         "type TEXT NOT NULL, " +
-                        "placed_at INTEGER NOT NULL" +
+                        "placed_at INTEGER NOT NULL, " +
+                        "number_of_survived_rolls INTEGER DEFAULT 0" +
                         ");");
             }
         } catch (Exception e) {
